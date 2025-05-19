@@ -89,11 +89,11 @@
 </head>
 <body>
     <h1>Hmong Typing Tool</h1>
-    <div class="subtitle">Pahawh Hmong - <a href="https://pahauhhmong.com/yublas.asp" target="_blank">2nd-Stage Reduced Version</a> (Completed on 12/8/2024)</div>
+    <div class="subtitle">Pahawh Hmong - <a href="PH - 2ndVer.png" target="_blank">2nd-Stage Reduced Version</a> (Completed on 12/8/2024)</div>
 
-    <div class="note">Please type Hmong words individually (LOWER CASES ONLY), don't combine the words.</div>
+    <div class="note">Please type Hmong words individually and don't combine the words.</div>
     <div class="example">ANY NON-HMONG WORDS WILL NOT BE CONVERTED</div>
-    <div class="example">Example: Type like this "los sis" and not like this "lossis". (RPA ⇔ Pahawh)</div>
+    <div class="example">Example: Type like this "los sis <span style="font-family: 'Noto Sans Pahawh Hmong';">(𖬓𖬲𖬞 𖬃𖬰𖬤𖬵)</span>" and not like this " lossis <span style="font-family: 'Noto Sans Pahawh Hmong';">(𖬓𖬲𖬞𖬃𖬰𖬤𖬵)</span>".</div>
     <textarea id="inputText" placeholder="Start typing in Hmong RPA or Pahawh Hmong..."></textarea>
 
     <div class="buttons">
@@ -13989,31 +13989,6 @@
 
         // Mapping from RPA to Pahawh for punctuation and digits
         const punctuationMap = {
-            '~': '~',
-            '`': '`',
-            '<': '<',
-            '>': '>',
-            '/': '/',
-            ':': ':',
-            '|': '|',
-            '}': '}',
-            '{': '{',
-            ']': ']',
-            '[': '[',
-            '+': '+',
-            '_': '_',
-            '=': '=',
-            '-': '-',
-            ')': ')',
-            '(': '(',
-            '*': '*',
-            '&': '&',
-            '^': '^',
-            '$': '$',
-            '#': '#',
-            '@': '@',
-            '.': '.',
-            ',': ',',
             '?': '𖬷',
             '!': '𖬸',
             '%': '𖬻',
@@ -14032,31 +14007,6 @@
 
         // Mapping from Pahawh to RPA for punctuation and digits
         const PahawhToRPAMap = {
-            '~': '~',
-            '`': '`',
-            '<': '<',
-            '>': '>',
-            '/': '/',
-            ':': ':',
-            '|': '|',
-            '}': '}',
-            '{': '{',
-            ']': ']',
-            '[': '[',
-            '+': '+',
-            '_': '_',
-            '=': '=',
-            '-': '-',
-            ')': ')',
-            '(': '(',
-            '*': '*',
-            '&': '&',
-            '^': '^',
-            '$': '$',
-            '#': '#',
-            '@': '@',
-            '.': '.',
-            ',': ',',
             '𖬷' : '?',
             '𖬸' : '!',
             '𖬻' : '%',
@@ -14095,13 +14045,16 @@ inputTextArea.addEventListener('input', () => {
 
     // Convert words after space is pressed
     if (lastChar === " ") {
-        const words = inputText.trim().split(' ');
+        const words = inputText.trim().split(/\s+/);
         const lastWord = words[words.length - 1];
 
+        const lowerLastWord = lastWord.toLowerCase(); // 👈 Lowercase it before checking
+
         const convertedWord =
-            rpaToPahawhMap[lastWord] ||
-            PahawhTorpaMap[lastWord] ||
-            lastWord;
+            rpaToPahawhMap[lowerLastWord] ||
+            PahawhTorpaMap[lowerLastWord] ||
+            lastWord; // if not found, keep original
+
         words[words.length - 1] = convertedWord;
         inputTextArea.value = words.join(' ') + ' ';
     }
@@ -14116,11 +14069,12 @@ inputTextArea.addEventListener('paste', (event) => {
     const words = pastedText.split(/\s+/);
 
     const convertedText = words.map(word => {
-        // Check if the word is in RPA to Pahawh or Pahawh to RPA map
-        if (rpaToPahawhMap[word]) {
-            return rpaToPahawhMap[word];
-        } else if (PahawhTorpaMap[word]) {
-            return PahawhTorpaMap[word];
+        const lowerWord = word.toLowerCase(); // 👈 Lowercase it before checking
+
+        if (rpaToPahawhMap[lowerWord]) {
+            return rpaToPahawhMap[lowerWord];
+        } else if (PahawhTorpaMap[lowerWord]) {
+            return PahawhTorpaMap[lowerWord];
         } else {
             // Convert individual characters for punctuation and digits
             return word.split('').map(char => punctuationMap[char] || PahawhToRPAMap[char] || char).join('');
