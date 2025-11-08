@@ -85,7 +85,74 @@
     button:last-child:hover {
         background-color: #46a846; /* Slightly darker green on hover */
     }
-</style>
+    .virtual-key:active {
+    background-color: #ccc;
+    transform: scale(0.95);
+    }
+    #keyboard-container button,
+    .virtual-key {
+    font-family: 'Noto Sans Pahawh Hmong', sans-serif;
+    font-size: 18px;
+    }
+
+    #toggleKeyboard {
+  margin-top: 1rem;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#pahawh-keyboard-container {
+  margin-top: 1rem;
+  font-family: 'Noto Sans Pahawh Hmong', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+.key {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #000;
+  font-size: 18px;         /* ↓ Smaller font */
+  padding: 8px 12px;        /* ↓ Smaller padding */
+  margin: 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 36px;          /* ↓ Smaller min width */
+  text-align: center;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.key:hover {
+  background-color: #d0d0d0;
+  transform: scale(1.05);
+}
+
+.key:active,
+.key.pressed {
+  box-shadow: inset 0 0 3px #555;
+  background-color: #ccc;
+}
+
+.key.spacebar {
+  min-width: calc(7 * 44px); /* Adjusted for ~7 key widths */
+}
+
+.key.shift,
+.key.capslock,
+.key.backspace {
+  font-weight: bold;
+}
+
+</Style>
 </head>
 <body>
     <h1>Hmong Typing Tool</h1>
@@ -100,12 +167,17 @@
         <button onclick="clearText()">Clear All</button>
         <button onclick="copyText()">Copy Text</button>
     </div>     
+
+    <button id="toggleKeyboard">Show Keyboard</button>
+    <div id="pahawh-keyboard-container" style="display: none;"></div>
+    <script src="pahawh-keyboard.js"></script>
+
     
     <div id="footer" style="text-align: center; font-size: 10px; margin-top: 40px;">
         <p>Created with ❤️ for preserving Hmong language and culture</p>
         <p>© 2024 Tou Vang</p>
     </div>
-
+        
     <script>
         const rpaToPahawhMap = {
             'a' : '𖬗𖬰𖬮𖬰',
@@ -14103,3 +14175,4 @@ function copyText() {
 
 </body>
 </html>
+
