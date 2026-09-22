@@ -8,3 +8,5 @@ Here's the RPA to Pahawh Converter website: https://kuvyoghmoob-123.github.io/RP
 _5/18/25 - Improvements_
 
 _11/8/2025 - Added Pahawh Hmong virtual keyboard (Unofficial, clone version from the newly supported keyboard layout "Hmong (Pahawh)" in IOS, with minor changes)_
+
+_9/21/2026 - Improved UI interface and coding algorithm structure(s) _
