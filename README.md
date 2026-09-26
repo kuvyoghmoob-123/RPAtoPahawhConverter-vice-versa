@@ -9,4 +9,4 @@ _5/18/25 - Improvements_
 
 _11/8/2025 - Added Pahawh Hmong virtual keyboard (Unofficial, clone version from the newly supported keyboard layout "Hmong (Pahawh)" in IOS, with minor changes)_
 
-_9/21/2026 - Improved UI interface and algorithm structure(s) updated_
+_9/25/2026 - Improved UI interface and algorithm structure(s) updated_
